@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
-import NonLogin from "../pages/non-login.vue";
+import Welcome from "../pages/welcome.vue";
 
 const routes = [
   {
     path: '/',
-    component: NonLogin,
+    component: Welcome,
   },
 ];
 
