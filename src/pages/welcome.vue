@@ -28,15 +28,16 @@ const goLogout = () => {
       <h1 class="text-2xl" v-if="!auth.init">
         Waiting for check login status...
       </h1>
-      <h1 class="text-2xl" v-else>
+      <h1 class="text-2xl" v-else-if="auth.init && !auth.isLoggedIn">
+        Please Login First!
+      </h1>
+      <h1 class="text-2xl" v-else-if="auth.init && auth.isLoggedIn">
         {{ 
-          auth.isLoggedIn 
-            ? `Hello ${auth.name}!` 
-            : 'Please Login First'
+          auth.isVerified ? `Hello ${auth.name}!` : 'Please go to email and check the verification message!'
         }}
       </h1>
       <div class="flex flex-row items-center justify-center space-x-4 py-2" v-if="auth.init">
-        <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn">
+        <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn && auth.isVerified">
           Update Name
         </button>
         <button class="btn btn-primary" @click="goLogout" v-if="auth.isLoggedIn">

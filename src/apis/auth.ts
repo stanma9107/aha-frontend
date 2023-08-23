@@ -15,10 +15,10 @@ const api = axios.create({
 
 const checkLoggedIn = async () => {
   const res = await api.get("/auth/check")
-  if (res.status == 200) {
-    return true;
-  }
-  return false;
+  return {
+    isLoggedIn: (res.status == 200),
+    isVerified: res.data.isVerified,
+  };
 };
 
 const getProfile = async () => {

@@ -6,6 +6,7 @@ const useAuthStore = defineStore('auth', {
     return {
       init: false,
       isLoggedIn: false,
+      isVerified: false,
       name: '',
     }
   },
@@ -13,9 +14,12 @@ const useAuthStore = defineStore('auth', {
     async checkLoggedIn() {
       const res = await authApi.checkLoggedIn()
       this.init = true;
-      if (res == true) {
+      if (res.isLoggedIn) {
         this.isLoggedIn = true;
-        this.getName();
+        this.isVerified = res.isVerified;
+        if (res.isVerified) {
+          this.getName();
+        }
       } else {
         this.isLoggedIn = false;
       }
