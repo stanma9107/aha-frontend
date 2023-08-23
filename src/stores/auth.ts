@@ -8,6 +8,7 @@ const useAuthStore = defineStore('auth', {
       isLoggedIn: false,
       isVerified: false,
       name: '',
+      picture: '',
     }
   },
   actions: {
@@ -18,17 +19,18 @@ const useAuthStore = defineStore('auth', {
         this.isLoggedIn = true;
         this.isVerified = res.isVerified;
         if (res.isVerified) {
-          this.getName();
+          this.getProfile();
         }
       } else {
         this.isLoggedIn = false;
       }
       return res;
     },
-    async getName() {
+    async getProfile() {
       const res = await authApi.getProfile();
       if (res != false) {
         this.name = res.name;
+        this.picture = res.picture;
       } else {
         alert('Get Name Error')
       }

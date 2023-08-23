@@ -25,13 +25,18 @@ const goLogout = () => {
 <template>
   <div class="w-screen h-screen bg-base-100 flex items-center justify-center">
     <div class="md:w-1/2 w-2/3 h-fit flex flex-col items-center">
+      <img
+        class="w-24 rounded-full"
+        :src="auth.picture"
+        v-if="auth.picture"
+      />
       <h1 class="text-2xl" v-if="!auth.init">
         Waiting for check login status...
       </h1>
-      <h1 class="text-2xl" v-else-if="auth.init && !auth.isLoggedIn">
+      <h1 class="text-2xl" v-else-if="!auth.isLoggedIn">
         Please Login First!
       </h1>
-      <h1 class="text-2xl" v-else-if="auth.init && auth.isLoggedIn">
+      <h1 class="text-2xl" v-else-if="auth.isLoggedIn">
         {{ 
           auth.isVerified ? `Hello ${auth.name}!` : 'Please go to email and check the verification message!'
         }}
@@ -40,7 +45,7 @@ const goLogout = () => {
         <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn && auth.isVerified">
           Update Name
         </button>
-        <button class="btn btn-primary" @click="goLogout" v-if="auth.isLoggedIn">
+        <button class="btn btn-neutral" @click="goLogout" v-if="auth.isLoggedIn">
           Logout
         </button>
         <button class="btn btn-primary" @click="goLogin" v-if="!auth.isLoggedIn">
