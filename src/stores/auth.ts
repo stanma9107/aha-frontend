@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import authApi from "../apis/auth";
+import memberApi from "../apis/member";
 
 const useAuthStore = defineStore('auth', {
   state: () => {
@@ -27,7 +28,7 @@ const useAuthStore = defineStore('auth', {
       return res;
     },
     async getProfile() {
-      const res = await authApi.getProfile();
+      const res = await memberApi.getProfile();
       if (res != false) {
         this.name = res.name;
         this.picture = res.picture;
@@ -36,7 +37,7 @@ const useAuthStore = defineStore('auth', {
       }
     },
     async setName(name: string) {
-      const res = await authApi.updateName(name);
+      const res = await memberApi.updateName(name);
       if (res != false) {
         this.name = name;
       } else {
