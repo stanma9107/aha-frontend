@@ -1,19 +1,43 @@
 import { defineStore } from "pinia";
+import authApi from "../apis/auth";
 
 const useAuthStore = defineStore('auth', {
   state: () => {
     return {
+      init: false,
       isLoggedIn: false,
+      name: '',
     }
   },
   actions: {
-    login() {
-      this.isLoggedIn = true;
+    async checkLoggedIn() {
+      const res = await authApi.checkLoggedIn()
+      this.init = true;
+      if (res == true) {
+        this.isLoggedIn = true;
+        this.getName();
+      } else {
+        this.isLoggedIn = false;
+      }
+      return res;
     },
-    logout() {
-      this.isLoggedIn = false;
+    async getName() {
+      const res = await authApi.getProfile();
+      if (res != false) {
+        this.name = res.name;
+      } else {
+        alert('Get Name Error')
+      }
     },
-  }
+    async setName(name: string) {
+      const res = await authApi.updateName(name);
+      if (res != false) {
+        this.name = name;
+      } else {
+        alert('Update Name Error')
+      }
+    },
+  },
 });
 
 export default useAuthStore;
