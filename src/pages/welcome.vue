@@ -16,6 +16,10 @@ const updateName = () => {
 const goLogin = () => {
   window.location.href = (import.meta.env.DEV) ? 'http://localhost:3000/auth/login' : 'https://aha-api.stanma.dev/auth/login'
 }
+
+const goLogout = () => {
+  window.location.href = (import.meta.env.DEV) ? 'http://localhost:3000/auth/logout' : 'https://aha-api.stanma.dev/auth/logout'
+}
 </script>
 
 <template>
@@ -32,8 +36,11 @@ const goLogin = () => {
         }}
       </h1>
       <div class="flex flex-row items-center justify-center space-x-4 py-2" v-if="auth.init">
-        <button class="btn btn-primary" @click="updateName" v-if="auth.isLoggedIn">
+        <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn">
           Update Name
+        </button>
+        <button class="btn btn-primary" @click="goLogout" v-if="auth.isLoggedIn">
+          Logout
         </button>
         <button class="btn btn-primary" @click="goLogin" v-if="!auth.isLoggedIn">
           Go Login
