@@ -35,6 +35,10 @@ const resendVerification = async () => {
 const goUsers = () => {
   router.push('/dashboard/users');
 }
+
+const goChangePassword = () => {
+  router.push('/dashboard/change-password');
+}
 </script>
 
 <template>
@@ -62,6 +66,9 @@ const goUsers = () => {
         </button>
         <button class="btn" v-if="auth.init && auth.isLoggedIn && !auth.isVerified" @click="resendVerification">
           Resend Verification
+        </button>
+        <button class="btn" v-if="auth.init && auth.isLoggedIn && auth.canChangePassword" @click="goChangePassword">
+          Change Password
         </button>
         <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn && auth.isVerified">
           Update Name

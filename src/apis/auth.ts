@@ -5,6 +5,7 @@ const checkLoggedIn = async () => {
   return {
     isLoggedIn: (res.status == 200),
     isVerified: res.data.isVerified,
+    canChangePassword: res.data.canChangePassword,
   };
 };
 

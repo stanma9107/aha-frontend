@@ -8,6 +8,7 @@ const useAuthStore = defineStore('auth', {
       init: false,
       isLoggedIn: false,
       isVerified: false,
+      canChangePassword: false,
       name: '',
       picture: '',
     }
@@ -19,6 +20,7 @@ const useAuthStore = defineStore('auth', {
       if (res.isLoggedIn) {
         this.isLoggedIn = true;
         this.isVerified = res.isVerified;
+        this.canChangePassword = res.canChangePassword;
         if (res.isVerified) {
           this.getProfile();
         }
