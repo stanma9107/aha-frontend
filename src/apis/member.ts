@@ -16,7 +16,16 @@ const updateName = async (name: string) => {
   return false;
 };
 
+const changePassword = async (oldPassword: string, newPassword: string, newPasswordAgain: string) => {
+  const res = await api.post("/member/change-password", { oldPassword, newPassword, newPasswordAgain })
+  return {
+    isSuccess: (res.status == 200),
+    message: res.data.message ?? undefined,
+  };
+};
+
 export default {
   getProfile,
   updateName,
+  changePassword,
 }

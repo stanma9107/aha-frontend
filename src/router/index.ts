@@ -9,7 +9,11 @@ const routes = [
   {
     path: '/dashboard/users',
     component: () => import('../pages/dashboard/users.vue'),
-  }
+  },
+  {
+    path: '/dashboard/change-password',
+    component: () => import('../pages/dashboard/change-password.vue'),
+  },
 ];
 
 const router = createRouter({
