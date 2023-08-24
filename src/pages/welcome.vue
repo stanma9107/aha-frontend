@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import useAuthStore from '../stores/auth';
 import router from '../router';
+import authApi from '../apis/auth';
 
 const auth = useAuthStore()
 
@@ -20,6 +21,15 @@ const goLogin = () => {
 
 const goLogout = () => {
   window.location.href = (import.meta.env.DEV) ? 'http://localhost:3000/auth/logout' : 'https://aha-api.stanma.dev/auth/logout'
+}
+
+const resendVerification = async () => {
+  const resend = await authApi.resendVerificationEmail();
+  if (resend.success) {
+    alert('Resend verification email success!')
+    return;
+  }
+  alert('Resend verification email failed!')
 }
 
 const goUsers = () => {
@@ -49,6 +59,9 @@ const goUsers = () => {
       <div class="flex flex-row items-center justify-center space-x-4 py-2" v-if="auth.init">
         <button class="btn" v-if="auth.init && auth.isLoggedIn && auth.isVerified" @click="goUsers">
           Users
+        </button>
+        <button class="btn" v-if="auth.init && auth.isLoggedIn && !auth.isVerified" @click="resendVerification">
+          Resend Verification
         </button>
         <button class="btn btn-neutral" @click="updateName" v-if="auth.isLoggedIn && auth.isVerified">
           Update Name
